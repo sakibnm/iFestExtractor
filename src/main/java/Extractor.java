@@ -9,6 +9,7 @@ public class Extractor {
         File[] listOfFiles = folder.listFiles();
 
         for (File file: listOfFiles){
+            if(file.isDirectory())continue;
             File outDir = new File("Output");
             if (!outDir.exists()) {
                 outDir.mkdirs();
