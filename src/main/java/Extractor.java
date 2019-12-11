@@ -22,6 +22,11 @@ public class Extractor {
 
                 Boolean duplicateStopped = false;
                 String line;
+                int num_posts= 0;
+                int num_opened= 0;
+                int num_favorite= 0;
+
+
                 while (true) {
                     line = bufferedReader.readLine();
                     if (line == null) break;
@@ -39,6 +44,7 @@ public class Extractor {
                         printWriter.println(outLine);
                     } else if (newLine.contains("New_Posts")) {
                         String outLine = parts[1] + ": " + "created a post";
+                        num_posts+=1;
                         duplicateStopped = false;
                         printWriter.println(outLine);
                     } else if (newLine.contains("My_Posts")) {
@@ -48,10 +54,12 @@ public class Extractor {
                     } else if (newLine.contains("Received_Posts")) {
                         String outLine = parts[1] + ": " + "opened notification ()";
                         duplicateStopped = false;
+                        num_opened+=1;
                         printWriter.println(outLine);
                     } else if (newLine.contains("Favorited")) {
                         String outLine = parts[1] + ": " + "Favorited a review";
                         duplicateStopped = false;
+                        num_favorite+=1;
                         printWriter.println(outLine);
                     } else if (newLine.contains("App stopped")) {
                         if (duplicateStopped) {
@@ -62,6 +70,9 @@ public class Extractor {
                         printWriter.println(outLine);
                     }
                 }
+                printWriter.println("Number of posts: "+num_posts);
+                printWriter.println("Number of times opened the notifications: "+num_opened);
+                printWriter.println("Number of times used Favorites: "+num_favorite);
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
